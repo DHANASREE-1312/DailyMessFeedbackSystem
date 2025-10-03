@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connection Test</title>
+</head>
+<body>
+    <h1>Daily Mess Feedback System - Connection Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        // Test backend connection
+        results.innerHTML += '<p>Testing backend connection...</p>';
+        
+        fetch('http://localhost:5000/')
+            .then(response => response.json())
+            .then(data => {
+                results.innerHTML += '<p>✅ Backend connection successful!</p>';
+                results.innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                // Test login
+                return fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'testuser',
+                        password: 'password123'
+                    })
+                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                results.innerHTML += '<p>✅ Login test successful!</p>';
+                results.innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                results.innerHTML += '<p>❌ Error: ' + error.message + '</p>';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>

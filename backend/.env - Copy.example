@@ -1,0 +1,15 @@
+# Azure SQL Database Configuration
+# Replace with your actual Azure SQL Database details
+
+# Database server (e.g., your-server.database.windows.net)
+DB_SERVER=dailyfeedbacksystem.database.windows.net
+
+# Database name (e.g., feedbackdb)
+DB_NAME=messdata
+# Database username (e.g., your-username@your-server)
+DB_USER=bhuvaneshwari
+# Database password
+DB_PASSWORD=Friends54321
+
+# Port (default 5000)
+PORT=5000
