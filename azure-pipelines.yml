@@ -1,21 +1,37 @@
-# Simple Docker Build Pipeline
+# Azure DevOps CI/CD Pipeline for Docker Application
 trigger:
-  - main
+  branches:
+    include:
+      - main
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  # Use your existing service connection
+  dockerRegistryServiceConnection: 'messdhana'  # ← Your existing connection!
+  imageRepository: 'mess-feedback-app'
+  tag: '$(Build.BuildId)'
+  vmImageName: 'ubuntu-latest'
 
-steps:
-- task: Docker@2
-  displayName: 'Build Docker Image'
-  inputs:
-    command: 'build'
-    Dockerfile: '**/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
-
-- script: |
-    echo "✅ Docker build completed successfully!"
-    echo "Build ID: $(Build.BuildId)"
-  displayName: 'Build Complete'
+stages:
+- stage: Build
+  displayName: Build and Push Docker Image
+  jobs:
+  - job: Build
+    displayName: Build Job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and Push Docker Image
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: '**/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          latest
+    
+    - script: |
+        echo "✅ Docker image built and pushed successfully!"
+        echo "Image: $(imageRepository):$(tag)"
+      displayName: 'Build Complete'
