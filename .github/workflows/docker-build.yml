@@ -29,9 +29,6 @@ jobs:
         tags: dhana1312/mess-feedback-frontend:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        # Explicitly disable GHCR
-        labels: |
-          org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
   build-backend:
     runs-on: ubuntu-latest
@@ -57,6 +54,3 @@ jobs:
         tags: dhana1312/mess-feedback-backend:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        # Explicitly disable GHCR
-        labels: |
-          org.opencontainers.image.source=https://github.com/${{ github.repository }}
