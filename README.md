@@ -162,7 +162,7 @@ docker-compose -f docker-compose.dev.yml up -d
 - **Backend API**: http://localhost:5000
 - **Database**: localhost:1433
 
-### Docker Commands
+### Docker Command
 
 ```bash
 # Build and start all services
