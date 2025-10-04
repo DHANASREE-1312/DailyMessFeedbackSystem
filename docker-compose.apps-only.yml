@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    image: dhana1312/mess-feedback-backend:latest
+    container_name: mess-feedback-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      # Use environment variables or defaults for database
+      - DB_SERVER=localhost
+      - DB_NAME=mess_feedback
+      - DB_USER=sa
+      - DB_PASSWORD=YourPassword123
+      - JWT_SECRET=your-jwt-secret
+      - FRONTEND_URL=http://localhost:3000
+    restart: unless-stopped
+    networks:
+      - mess-feedback-network
+
+  frontend:
+    image: dhana1312/mess-feedback-frontend:latest
+    container_name: mess-feedback-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - mess-feedback-network
+
+networks:
+  mess-feedback-network:
+    driver: bridge
