@@ -9,11 +9,12 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=5000
-      - DB_SERVER=localhost
-      - DB_NAME=mess_feedback
-      - DB_USER=sa
-      - DB_PASSWORD=YourPassword123
-      - JWT_SECRET=your-jwt-secret-key-here
+      - DB_SERVER=dailyfeedbacksystem.database.windows.net
+      - DB_NAME=messdata
+      - DB_USER=bhuvaneshwari@dailyfeedbacksystem
+      - DB_PASSWORD=Friends54321
+      - DB_PORT=1433
+      - JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-12345
       - FRONTEND_URL=http://localhost:3000
     restart: unless-stopped
 
