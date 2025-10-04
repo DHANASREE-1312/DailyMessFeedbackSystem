@@ -354,3 +354,4 @@ kubectl top pods -n mess-feedback-system
 3. Test thoroughly with Docker
 4. Submit a pull request
 5. CI/CD pipeline will automatically test and build
+Add a line at the bottom: <!-- CI/CD Test - Version 2.0 -->
