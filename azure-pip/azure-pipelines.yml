@@ -1,0 +1,29 @@
+trigger:
+- main
+
+variables:
+  dockerRegistryServiceConnection: 'docker-hub-dhana1312'
+  imageRepository: 'dhana1312/dhana-mess'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+
+- task: Docker@2
+  displayName: Build and Push to Docker Hub
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: '**/Dockerfile'
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(Build.BuildId)
+      latest
+
+- script: |
+    echo "✅ Successfully built and pushed to Docker Hub!"
+    echo "Image: dhana1312/dhana-mess:latest"
+    echo "Image: dhana1312/dhana-mess:$(Build.BuildId)"
+  displayName: 'Success Message'
